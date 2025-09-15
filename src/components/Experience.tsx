@@ -29,15 +29,16 @@ interface Experience {
   color: string;
   current?: boolean;
   projectsUrl?: string;
+  websiteUrl?: string;
 }
 
 const experiences: Experience[] = [
   {
     id: 'inxeniux',
     period: '2022 - 2025',
-    company: 'Grupo Inxeniux',
+    company: 'Grupo INXENIUX',
     position: 'Líder Técnico & Full-Stack Developer',
-    location: 'León, Guanajuato',
+    location: 'Ciudad de México',
     type: 'work',
     description: 'Liderando equipos de desarrollo en proyectos enterprise críticos para grandes corporaciones.',
     achievements: [
@@ -50,7 +51,8 @@ const experiences: Experience[] = [
     technologies: ['React', 'Node.js', 'Flutter', 'PostgreSQL', 'AWS', 'Docker', 'TypeScript'],
     color: 'from-blue-500 to-cyan-500',
     current: true,
-    projectsUrl: '#projects'
+    projectsUrl: '#projects',
+    websiteUrl: 'https://inxeniux.com/'
   },
   {
     id: 'hispanoamericano',
@@ -69,7 +71,8 @@ const experiences: Experience[] = [
     ],
     technologies: ['Arduino', 'Raspberry Pi', 'NFC', 'IoT', 'Python', 'JavaScript', 'MySQL'],
     color: 'from-green-500 to-emerald-500',
-    projectsUrl: '#projects'
+    projectsUrl: '#projects',
+    websiteUrl: 'https://www.hispanoamericano.edu.mx/'
   },
   {
     id: 'medusa',
@@ -118,7 +121,7 @@ export default function Experience() {
   const education = experiences.filter(exp => exp.type === 'education');
 
   return (
-    <section id="experience" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="experience" className="py-20 bg-background/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -127,10 +130,10 @@ export default function Experience() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Experiencia <span className="text-blue-600">Profesional</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Experiencia <span className="text-accent">Profesional</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
             Mi trayectoria profesional construyendo soluciones tecnológicas que impactan positivamente
             en organizaciones y usuarios finales.
           </p>
@@ -142,7 +145,7 @@ export default function Experience() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center"
+            className="text-2xl font-bold text-foreground mb-8 flex items-center"
           >
             <BriefcaseIcon className="w-6 h-6 mr-3" />
             Experiencia Laboral
@@ -150,7 +153,7 @@ export default function Experience() {
 
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 hidden md:block" />
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-accent hidden md:block" />
 
             <div className="space-y-8">
               {workExperiences.map((exp, index) => (
@@ -165,12 +168,12 @@ export default function Experience() {
                   className="relative"
                 >
                   {/* Timeline dot */}
-                  <div className="absolute left-6 w-4 h-4 bg-white border-4 border-blue-500 rounded-full hidden md:block" />
+                  <div className="absolute left-6 w-4 h-4 bg-background border-4 border-accent rounded-full hidden md:block" />
                   
                   <div className="md:ml-20">
                     <div 
-                      className={`bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700 cursor-pointer ${
-                        selectedExperience === exp.id ? 'ring-2 ring-blue-500' : ''
+                      className={`bg-background rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-foreground/10 cursor-pointer ${
+                        selectedExperience === exp.id ? 'ring-2 ring-accent' : ''
                       }`}
                       onClick={() => setSelectedExperience(
                         selectedExperience === exp.id ? null : exp.id
@@ -185,21 +188,33 @@ export default function Experience() {
                                 <BuildingOfficeIcon className="w-6 h-6 text-white" />
                               </div>
                               <div>
-                                <h4 className="text-xl font-bold text-gray-900 dark:text-white">
+                                <h4 className="text-xl font-bold text-foreground">
                                   {exp.position}
                                 </h4>
-                                <p className="text-lg font-semibold text-blue-600 dark:text-blue-400">
-                                  {exp.company}
-                                </p>
+                                {exp.websiteUrl ? (
+                                  <a 
+                                    href={exp.websiteUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-lg font-semibold text-accent hover:text-accent/80 transition-colors flex items-center space-x-1 group"
+                                  >
+                                    <span>{exp.company}</span>
+                                    <ArrowTopRightOnSquareIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                  </a>
+                                ) : (
+                                  <p className="text-lg font-semibold text-accent">
+                                    {exp.company}
+                                  </p>
+                                )}
                               </div>
                               {exp.current && (
-                                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                                <span className="bg-accent/10 text-accent text-xs font-medium px-2.5 py-0.5 rounded-full">
                                   Actual
                                 </span>
                               )}
                             </div>
                             
-                            <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                            <div className="flex items-center space-x-6 text-sm text-foreground/60 mb-4">
                               <div className="flex items-center space-x-2">
                                 <CalendarDaysIcon className="w-4 h-4" />
                                 <span>{exp.period}</span>
@@ -212,13 +227,13 @@ export default function Experience() {
                           </div>
 
                           <ChevronRightIcon 
-                            className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                            className={`w-5 h-5 text-foreground/40 transition-transform duration-200 ${
                               selectedExperience === exp.id ? 'rotate-90' : ''
                             }`} 
                           />
                         </div>
 
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <p className="text-foreground/70 leading-relaxed">
                           {exp.description}
                         </p>
                       </div>
@@ -231,12 +246,12 @@ export default function Experience() {
                             animate={{ height: 'auto', opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
+                            className="border-t border-foreground/10 bg-background/50"
                           >
                             <div className="p-6">
                               {/* Achievements */}
                               <div className="mb-6">
-                                <h5 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                                <h5 className="text-lg font-semibold text-foreground mb-4 flex items-center">
                                   <UserGroupIcon className="w-5 h-5 mr-2" />
                                   Logros Principales
                                 </h5>
@@ -249,8 +264,8 @@ export default function Experience() {
                                       transition={{ delay: i * 0.1 }}
                                       className="flex items-start space-x-3"
                                     >
-                                      <CheckCircleIcon className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                                      <span className="text-gray-600 dark:text-gray-300 text-sm">
+                                      <CheckCircleIcon className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                                      <span className="text-foreground/70 text-sm">
                                         {achievement}
                                       </span>
                                     </motion.div>
@@ -260,7 +275,7 @@ export default function Experience() {
 
                               {/* Technologies */}
                               <div className="mb-6">
-                                <h5 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                                <h5 className="text-lg font-semibold text-foreground mb-4 flex items-center">
                                   <CogIcon className="w-5 h-5 mr-2" />
                                   Stack Tecnológico
                                 </h5>
@@ -268,7 +283,7 @@ export default function Experience() {
                                   {exp.technologies.map((tech) => (
                                     <span
                                       key={tech}
-                                      className="px-3 py-1 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full border border-gray-200 dark:border-gray-600"
+                                      className="px-3 py-1 bg-background text-foreground/80 text-sm font-medium rounded-full border border-foreground/20"
                                     >
                                       {tech}
                                     </span>
@@ -286,7 +301,7 @@ export default function Experience() {
                                       element.scrollIntoView({ behavior: 'smooth' });
                                     }
                                   }}
-                                  className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors group cursor-pointer"
+                                  className="flex items-center space-x-2 text-accent hover:text-accent/80 font-medium transition-colors group cursor-pointer"
                                 >
                                   <CodeBracketIcon className="w-4 h-4" />
                                   <span>Ver proyectos de este periodo</span>
@@ -311,7 +326,7 @@ export default function Experience() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-2xl font-bold text-gray-900 dark:text-white mb-8 flex items-center"
+            className="text-2xl font-bold text-foreground mb-8 flex items-center"
           >
             <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -326,7 +341,7 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700"
+              className="bg-background rounded-2xl shadow-lg p-6 border border-foreground/10"
             >
               <div className="flex items-start space-x-4">
                 <div className={`w-16 h-16 bg-gradient-to-r ${edu.color} rounded-2xl flex items-center justify-center flex-shrink-0`}>
@@ -334,14 +349,26 @@ export default function Experience() {
                 </div>
                 
                 <div className="flex-1">
-                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  <h4 className="text-xl font-bold text-foreground mb-2">
                     {edu.position}
                   </h4>
-                  <p className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2">
-                    {edu.company}
-                  </p>
+                  {edu.websiteUrl ? (
+                    <a 
+                      href={edu.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-lg font-semibold text-accent hover:text-accent/80 transition-colors flex items-center space-x-1 group mb-2"
+                    >
+                      <span>{edu.company}</span>
+                      <ArrowTopRightOnSquareIcon className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  ) : (
+                    <p className="text-lg font-semibold text-accent mb-2">
+                      {edu.company}
+                    </p>
+                  )}
                   
-                  <div className="flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <div className="flex items-center space-x-6 text-sm text-foreground/60 mb-4">
                     <div className="flex items-center space-x-2">
                       <CalendarDaysIcon className="w-4 h-4" />
                       <span>{edu.period}</span>
@@ -352,7 +379,7 @@ export default function Experience() {
                     </div>
                   </div>
                   
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                  <p className="text-foreground/70 leading-relaxed mb-4">
                     {edu.description}
                   </p>
                   
@@ -360,7 +387,7 @@ export default function Experience() {
                     {edu.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full"
+                        className="px-3 py-1 bg-foreground/10 text-foreground/80 text-sm font-medium rounded-full"
                       >
                         {tech}
                       </span>
@@ -372,34 +399,146 @@ export default function Experience() {
           ))}
         </div>
 
-        {/* Certifications note */}
+        {/* Certifications section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-12 text-center bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 border border-blue-200 dark:border-blue-800"
+          className="mt-12 bg-accent/5 rounded-2xl p-8 border border-accent/20"
         >
-          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          <h4 className="text-2xl font-bold text-foreground mb-6 text-center">
             Formación Continua
           </h4>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
-            15+ certificaciones completadas en plataformas como DevTalles, 
-            especializándome en tecnologías modernas y mejores prácticas.
+          <p className="text-foreground/70 mb-8 text-center max-w-4xl mx-auto">
+            Más de 25 certificaciones en desarrollo full-stack, liderazgo técnico, DevOps y tecnologías emergentes, completadas en plataformas reconocidas como DevTalles, Platzi, Udemy y Domestika.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              'React: De cero a experto',
-              'Next.js para producción',
-              'Clean Architecture',
-              'Flutter móvil avanzado'
-            ].map((cert) => (
-              <span
-                key={cert}
-                className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg shadow-sm"
-              >
-                ⭐ {cert}
-              </span>
-            ))}
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Desarrollo Full-Stack / Mobile / Backend */}
+            <div className="space-y-4">
+              <h5 className="text-lg font-semibold text-foreground flex items-center">
+                <CodeBracketIcon className="w-5 h-5 mr-2 text-accent" />
+                Desarrollo Full‑Stack / Mobile / Backend
+              </h5>
+              <div className="space-y-2">
+                {[
+                  { name: 'React: De cero a experto (Hooks & MERN)', platform: 'DevTalles' },
+                  { name: 'Next.js: El framework de React para producción', platform: 'DevTalles' },
+                  { name: 'Node – Autenticación REST con Clean Architecture', platform: 'DevTalles' },
+                  { name: 'Dart: De cero hasta los detalles', platform: 'DevTalles' },
+                  { name: 'Flutter móvil: Recursos nativos', platform: 'DevTalles' },
+                  { name: 'Curso de Flutter', platform: 'Platzi' },
+                  { name: 'Jetpack Compose', platform: 'Platzi' },
+                  { name: 'Curso Básico de JavaScript', platform: 'Platzi' },
+                  { name: 'Curso de ECMAScript 6+', platform: 'Platzi' },
+                  { name: 'Curso de Closures y Scope en JavaScript 2020', platform: 'Platzi' }
+                ].map((cert, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-background rounded-lg border border-foreground/10"
+                  >
+                    <span className="text-sm text-foreground/80 font-medium">
+                      ⭐ {cert.name}
+                    </span>
+                    <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded">
+                      {cert.platform}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Gestión, Liderazgo y Metodologías Ágiles */}
+            <div className="space-y-4">
+              <h5 className="text-lg font-semibold text-foreground flex items-center">
+                <UserGroupIcon className="w-5 h-5 mr-2 text-accent" />
+                Gestión, Liderazgo y Metodologías Ágiles
+              </h5>
+              <div className="space-y-2">
+                {[
+                  { name: 'Gestión de Proyectos con Jira', platform: 'Platzi' },
+                  { name: 'Gestiona tu Proyecto Scrum con Jira Software', platform: 'Udemy' },
+                  { name: 'Product Management para Developers', platform: 'Platzi' },
+                  { name: 'Curso de Seguimiento y Cierre de Proyectos', platform: 'Platzi' },
+                  { name: 'Curso de Estrategias para la Productividad y la Organización', platform: 'Platzi' },
+                  { name: 'Curso de Gestión Efectiva del Tiempo', platform: 'Platzi' },
+                  { name: 'Desarrollo del potencial humano XI: Líderes dejando huella', platform: 'CEH' },
+                  { name: 'Cómo tratar con clientes difíciles', platform: 'CDIN' }
+                ].map((cert, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-background rounded-lg border border-foreground/10"
+                  >
+                    <span className="text-sm text-foreground/80 font-medium">
+                      ⭐ {cert.name}
+                    </span>
+                    <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded">
+                      {cert.platform}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DevOps, Automatización y Business Intelligence */}
+            <div className="space-y-4">
+              <h5 className="text-lg font-semibold text-foreground flex items-center">
+                <CogIcon className="w-5 h-5 mr-2 text-accent" />
+                DevOps, Automatización y Business Intelligence
+              </h5>
+              <div className="space-y-2">
+                {[
+                  { name: 'Automatización de procesos con Power Apps / Power BI', platform: 'Microsoft' },
+                  { name: 'Curso de Automatización de Procesos RPA con UiPath', platform: 'Platzi' },
+                  { name: 'Google BigQuery, Looker Studio, AppScript', platform: 'Google' },
+                  { name: 'Fundamentos de AWS Cloud', platform: 'Platzi' },
+                  { name: 'Curso de Fundamentos de AWS Cloud 2018', platform: 'Platzi' }
+                ].map((cert, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-background rounded-lg border border-foreground/10"
+                  >
+                    <span className="text-sm text-foreground/80 font-medium">
+                      ⭐ {cert.name}
+                    </span>
+                    <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded">
+                      {cert.platform}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Diseño, Marca y Tecnología Aplicada */}
+            <div className="space-y-4">
+              <h5 className="text-lg font-semibold text-foreground flex items-center">
+                <svg className="w-5 h-5 mr-2 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                </svg>
+                Diseño, Marca y Tecnología Aplicada
+              </h5>
+              <div className="space-y-2">
+                {[
+                  { name: 'Curso de Diseño para Developers', platform: 'Platzi' },
+                  { name: 'Curso de Construcción de Marca', platform: 'Platzi' },
+                  { name: 'Curso de Diseño y Modelado para Impresión 3D', platform: 'Domestika' },
+                  { name: 'Curso de Fundamentos de Electricidad y Electrónica', platform: 'Platzi' },
+                  { name: 'Curso de Análisis de Negocios para Ciencia de Datos', platform: 'Platzi' }
+                ].map((cert, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between p-3 bg-background rounded-lg border border-foreground/10"
+                  >
+                    <span className="text-sm text-foreground/80 font-medium">
+                      ⭐ {cert.name}
+                    </span>
+                    <span className="text-xs text-accent font-medium bg-accent/10 px-2 py-1 rounded">
+                      {cert.platform}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

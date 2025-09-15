@@ -22,7 +22,7 @@ const skillCategories = [
   {
     name: 'Frontend',
     icon: ComputerDesktopIcon,
-    color: 'from-blue-500 to-cyan-500',
+    color: 'bg-accent',
     skills: [
       { name: 'React', level: 95, category: 'frontend' },
       { name: 'Next.js', level: 95, category: 'frontend' },
@@ -34,7 +34,7 @@ const skillCategories = [
   {
     name: 'Backend',
     icon: ServerIcon,
-    color: 'from-green-500 to-emerald-500',
+    color: 'bg-accent/90',
     skills: [
       { name: 'Node.js', level: 95, category: 'backend' },
       { name: 'TypeScript', level: 95, category: 'backend' },
@@ -46,7 +46,7 @@ const skillCategories = [
   {
     name: 'Mobile',
     icon: DevicePhoneMobileIcon,
-    color: 'from-purple-500 to-pink-500',
+    color: 'bg-accent/80',
     skills: [
       { name: 'Flutter', level: 85, category: 'mobile' },
       { name: 'Kotlin', level: 70, category: 'mobile' },
@@ -57,7 +57,7 @@ const skillCategories = [
   {
     name: 'Datos',
     icon: CircleStackIcon,
-    color: 'from-orange-500 to-red-500',
+    color: 'bg-accent/70',
     skills: [
       { name: 'PostgreSQL', level: 90, category: 'datos' },
       { name: 'MongoDB', level: 75, category: 'datos' },
@@ -68,7 +68,7 @@ const skillCategories = [
   {
     name: 'DevOps',
     icon: WrenchScrewdriverIcon,
-    color: 'from-indigo-500 to-purple-500',
+    color: 'bg-accent/60',
     skills: [
       { name: 'Docker', level: 80, category: 'devops' },
       { name: 'CI/CD', level: 80, category: 'devops' },
@@ -79,7 +79,7 @@ const skillCategories = [
   {
     name: 'Cloud',
     icon: CloudIcon,
-    color: 'from-teal-500 to-blue-500',
+    color: 'bg-accent/50',
     skills: [
       { name: 'AWS', level: 70, category: 'cloud' },
       { name: 'Vercel', level: 90, category: 'cloud' },
@@ -90,10 +90,9 @@ const skillCategories = [
 ];
 
 const learningSkills = [
-  { name: 'Kubernetes', progress: 60 },
-  { name: 'GraphQL', progress: 40 },
-  { name: 'Rust', progress: 30 },
-  { name: 'Web3', progress: 25 }
+  { name: 'Java: Spring Boot', progress: 10 },
+  { name: 'Swift', progress: 60 },
+  { name: 'Inglés B2', progress: 30 }
 ];
 
 export default function Skills() {
@@ -117,7 +116,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="skills" className="py-20 bg-background/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -126,10 +125,10 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Mi Arsenal <span className="text-blue-600">Tecnológico</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Mi Arsenal <span className="text-accent">Tecnológico</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
             Tecnologías y herramientas que domino para crear soluciones escalables y robustas
           </p>
         </motion.div>
@@ -147,7 +146,7 @@ export default function Skills() {
             {[1, 2, 3, 4, 5].map((circle) => (
               <div
                 key={circle}
-                className="absolute border border-gray-300 dark:border-gray-600 rounded-full opacity-20"
+                className="absolute border-2 border-foreground/60 rounded-full"
                 style={{
                   width: `${circle * 20}%`,
                   height: `${circle * 20}%`,
@@ -179,9 +178,9 @@ export default function Skills() {
                       : item.category.toLowerCase()
                   )}
                 >
-                  <div className={`w-4 h-4 bg-gradient-to-r ${item.color} rounded-full shadow-lg hover:scale-125 transition-transform`} />
+                  <div className={`w-4 h-4 ${item.color} rounded-full shadow-lg hover:scale-125 transition-transform border-2 border-foreground/80`} />
                   <div className="absolute top-6 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                    <span className="text-xs font-medium text-foreground/70">
                       {item.category}
                     </span>
                   </div>
@@ -205,20 +204,20 @@ export default function Skills() {
                 viewport={{ once: true }}
                 transition={{ delay: categoryIndex * 0.1 }}
                 className={clsx(
-                  'bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300',
-                  isSelected && 'ring-2 ring-blue-500 scale-105'
+                  'bg-background rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-foreground/10',
+                  isSelected && 'ring-2 ring-accent scale-105'
                 )}
               >
                 {/* Category header */}
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className={`w-12 h-12 bg-gradient-to-r ${category.color} rounded-xl flex items-center justify-center`}>
+                  <div className={`w-12 h-12 ${category.color} rounded-xl flex items-center justify-center`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-foreground">
                       {category.name}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-foreground/60">
                       {category.skills.length} tecnologías
                     </p>
                   </div>
@@ -238,15 +237,15 @@ export default function Skills() {
                       className="group"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <span className="text-sm font-medium text-foreground/80">
                           {skill.name}
                         </span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                        <span className="text-xs text-foreground/60">
                           {skill.level}%
                         </span>
                       </div>
                       
-                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                      <div className="w-full bg-foreground/10 rounded-full h-2 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
@@ -278,11 +277,11 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+          <h3 className="text-2xl font-bold text-foreground mb-8">
             Actualmente Aprendiendo
           </h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {learningSkills.map((skill, index) => (
               <motion.div
                 key={skill.name}
@@ -290,30 +289,29 @@ export default function Skills() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                className="bg-background rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-foreground/10"
               >
                 <div className="text-2xl mb-3">
-                  {skill.name === 'Kubernetes' && '☸️'}
-                  {skill.name === 'GraphQL' && '🔗'}
-                  {skill.name === 'Rust' && '🦀'}
-                  {skill.name === 'Web3' && '🌐'}
+                  {skill.name === 'Java: Spring Boot' && '☕'}
+                  {skill.name === 'Swift' && '🍎'}
+                  {skill.name === 'Inglés B2' && '🇺🇸'}
                 </div>
                 
-                <h4 className="font-bold text-gray-900 dark:text-white mb-3">
+                <h4 className="font-bold text-foreground mb-3">
                   {skill.name}
                 </h4>
                 
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+                <div className="w-full bg-foreground/10 rounded-full h-2 mb-2">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.progress}%` }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1, duration: 1 }}
-                    className="h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full"
+                    className="h-full bg-accent rounded-full"
                   />
                 </div>
                 
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-foreground/60">
                   {skill.progress}% progreso
                 </span>
               </motion.div>

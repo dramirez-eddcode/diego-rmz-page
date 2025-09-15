@@ -35,7 +35,7 @@ const projects = [
     metrics: ['10,000+ usuarios activos', 'Integración con API Citi Banamex', 'Arquitectura escalable'],
     image: '/projects/mi-tiendita.jpg',
     demoUrl: '#',
-    caseStudyUrl: '#',
+    caseStudyUrl: 'https://mitienditajuntos.com/',
     featured: true
   },
   {
@@ -48,7 +48,7 @@ const projects = [
     metrics: ['Pagos integrados con Stripe', 'Búsqueda inteligente con Algolia', 'Dashboard analytics en tiempo real'],
     image: '/projects/know-me.jpg',
     demoUrl: '#',
-    liveUrl: '#',
+    liveUrl: 'https://www.knowmeapp.com/',
     featured: true
   },
   {
@@ -60,8 +60,20 @@ const projects = [
     tags: ['React', 'Node.js', 'MongoDB', 'AWS'],
     metrics: ['500+ empresas conectadas', 'Sistema de matching inteligente', 'Analytics avanzados'],
     image: '/projects/konnexxa.jpg',
-    caseStudyUrl: '#',
-    featured: false
+    liveUrl: 'https://www.konnexxa.com/',
+    featured: true
+  },
+  {
+    id: 7,
+    title: 'NOM-035 Manager',
+    subtitle: 'Gestión de Norma 035',
+    description: 'Gestión y aplicación de guías I, II, III y V para el cumplimiento de la norma 035',
+    category: ['web', 'government', 'enterprise'],
+    tags: ['Next.js 15', 'Supabase', 'Resend', 'TypeScript', 'Vercel'],
+    metrics: ['Cumplimiento normativo automatizado', 'Gestión integral de guías', 'Dashboard de seguimiento'],
+    image: '/projects/nom035.jpg',
+    liveUrl: 'https://nom035-manager.vercel.app/',
+    featured: true
   },
   {
     id: 4,
@@ -72,7 +84,7 @@ const projects = [
     tags: ['Vue.js', 'PHP', 'MySQL'],
     metrics: ['Automatización de procesos', 'Reportes personalizados', 'Integración con herramientas existentes'],
     image: '/projects/crm-tkm.jpg',
-    caseStudyUrl: '#',
+    caseStudyUrl: 'https://www.linkedin.com/company/tkm-customer-solutions',
     featured: false
   },
   {
@@ -84,7 +96,7 @@ const projects = [
     tags: ['React', 'D3.js', 'Python', 'PostgreSQL'],
     metrics: ['Visualización de datos complejos', 'Reportes automatizados', 'Integración multi-región'],
     image: '/projects/veolia-bi.jpg',
-    caseStudyUrl: '#',
+    caseStudyUrl: 'https://www.latinoamerica.veolia.com/es',
     featured: false
   },
   {
@@ -96,7 +108,7 @@ const projects = [
     tags: ['Next.js', 'PostgreSQL', 'AWS'],
     metrics: ['100K+ ciudadanos atendidos', 'Reducción 60% tiempos de trámite', 'Accesibilidad AAA'],
     image: '/projects/gobierno-gto.jpg',
-    caseStudyUrl: '#',
+    caseStudyUrl: 'https://guanajuato.mx/',
     featured: false
   }
 ];
@@ -113,7 +125,7 @@ export default function Projects() {
   const otherProjects = filteredProjects.filter(project => !project.featured);
 
   return (
-    <section id="projects" className="py-20 bg-white dark:bg-gray-900">
+    <section id="projects" className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -122,10 +134,10 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Proyectos <span className="text-blue-600">Destacados</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Proyectos <span className="text-accent">Destacados</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
             Una selección de proyectos que demuestran mi experiencia en desarrollo full-stack, 
             arquitectura de sistemas y liderazgo técnico.
           </p>
@@ -148,8 +160,8 @@ export default function Projects() {
                 className={clsx(
                   'flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 cursor-pointer',
                   selectedCategory === category.value
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    ? 'bg-accent text-white shadow-lg shadow-accent/25'
+                    : 'bg-background/50 text-foreground/70 hover:bg-accent/5 border border-foreground/10'
                 )}
               >
                 <Icon className="w-4 h-4" />
@@ -166,7 +178,7 @@ export default function Projects() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-2xl font-bold text-gray-900 dark:text-white mb-8"
+              className="text-2xl font-bold text-foreground mb-8"
             >
               Proyectos Principales
             </motion.h3>
@@ -184,34 +196,49 @@ export default function Projects() {
                     transition={{ delay: index * 0.1 }}
                     onHoverStart={() => setHoveredProject(project.id)}
                     onHoverEnd={() => setHoveredProject(null)}
-                    className="group relative bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+                    className="group relative bg-background/50 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-foreground/10"
                   >
-                    {/* Project Image Placeholder */}
-                    <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-6xl opacity-20">
-                          {project.category.includes('mobile') ? '📱' : '💻'}
-                        </div>
-                      </div>
+                    {/* Project Preview */}
+                    <div className="aspect-video bg-accent/5 relative overflow-hidden">
+                      {/* Website Preview */}
+                      <iframe
+                        src={project.liveUrl || project.caseStudyUrl}
+                        className="w-full h-full scale-[0.3] origin-top-left transform-gpu"
+                        style={{
+                          width: '333.33%',
+                          height: '333.33%',
+                          pointerEvents: 'none'
+                        }}
+                        title={`${project.title} preview`}
+                      />
                       
                       {/* Hover overlay */}
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: hoveredProject === project.id ? 1 : 0 }}
-                        className="absolute inset-0 bg-black/50 flex items-center justify-center space-x-4"
+                        className="absolute inset-0 bg-black/30 flex items-center justify-center space-x-4"
                       >
-                        {project.demoUrl && (
-                          <button className="bg-white text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center space-x-2 cursor-pointer">
-                            <EyeIcon className="w-4 h-4" />
-                            <span>Demo</span>
-                          </button>
-                        )}
                         {project.liveUrl && (
-                          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center space-x-2 cursor-pointer">
-                            <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                            <span>Live</span>
-                          </button>
+                          <a 
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-accent text-white px-6 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors flex items-center space-x-2 cursor-pointer shadow-lg"
+                          >
+                            <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                            <span>Visitar sitio</span>
+                          </a>
+                        )}
+                        {!project.liveUrl && project.caseStudyUrl && (
+                          <a 
+                            href={project.caseStudyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-accent text-white px-6 py-3 rounded-lg font-medium hover:bg-accent/90 transition-colors flex items-center space-x-2 cursor-pointer shadow-lg"
+                          >
+                            <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                            <span>Ver proyecto</span>
+                          </a>
                         )}
                       </motion.div>
                     </div>
@@ -219,16 +246,16 @@ export default function Projects() {
                     <div className="p-6">
                       {/* Title and subtitle */}
                       <div className="mb-4">
-                        <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                        <h4 className="text-xl font-bold text-foreground mb-1">
                           {project.title}
                         </h4>
-                        <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                        <p className="text-sm font-medium text-accent">
                           {project.subtitle}
                         </p>
                       </div>
 
                       {/* Description */}
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      <p className="text-foreground/70 mb-4">
                         {project.description}
                       </p>
 
@@ -237,7 +264,7 @@ export default function Projects() {
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full"
+                            className="px-3 py-1 bg-foreground/10 text-foreground/80 text-xs font-medium rounded-full"
                           >
                             {tag}
                           </span>
@@ -247,8 +274,8 @@ export default function Projects() {
                       {/* Metrics */}
                       <div className="space-y-2 mb-6">
                         {project.metrics.map((metric, i) => (
-                          <div key={i} className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                            <div className="w-1 h-1 bg-green-500 rounded-full"></div>
+                          <div key={i} className="flex items-center space-x-2 text-sm text-foreground/60">
+                            <div className="w-1 h-1 bg-accent rounded-full"></div>
                             <span>{metric}</span>
                           </div>
                         ))}
@@ -257,10 +284,15 @@ export default function Projects() {
                       {/* Actions */}
                       <div className="flex space-x-3">
                         {project.caseStudyUrl && (
-                          <button className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm cursor-pointer">
+                          <a 
+                            href={project.caseStudyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center space-x-2 text-accent hover:text-accent/80 font-medium text-sm cursor-pointer"
+                          >
                             <span>Ver caso de estudio</span>
                             <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                          </button>
+                          </a>
                         )}
                       </div>
                     </div>
@@ -280,7 +312,7 @@ export default function Projects() {
               viewport={{ once: true }}
               className="flex items-center justify-between mb-8"
             >
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h3 className="text-2xl font-bold text-foreground">
                 Más proyectos
               </h3>
             </motion.div>
@@ -296,10 +328,10 @@ export default function Projects() {
                     exit={{ opacity: 0, y: 20 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
-                    className="group bg-gray-50 dark:bg-gray-800 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+                    className="group bg-background/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] border border-foreground/10"
                   >
                     {/* Icon */}
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                    <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
                       <span className="text-white text-2xl">
                         {project.category.includes('mobile') ? '📱' : project.category.includes('government') ? '🏛️' : '💼'}
                       </span>
@@ -307,7 +339,7 @@ export default function Projects() {
 
                     {/* Title and subtitle */}
                     <div className="mb-3">
-                      <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                      <h4 className="text-lg font-bold text-foreground mb-1">
                         {project.title}
                       </h4>
                       <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
@@ -316,7 +348,7 @@ export default function Projects() {
                     </div>
 
                     {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                    <p className="text-foreground/70 text-sm mb-4">
                       {project.description}
                     </p>
 
@@ -325,13 +357,13 @@ export default function Projects() {
                       {project.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded"
+                          className="px-2 py-1 bg-foreground/10 text-foreground/80 text-xs font-medium rounded"
                         >
                           {tag}
                         </span>
                       ))}
                       {project.tags.length > 3 && (
-                        <span className="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded">
+                        <span className="px-2 py-1 bg-foreground/10 text-foreground/80 text-xs font-medium rounded">
                           +{project.tags.length - 3}
                         </span>
                       )}
@@ -339,10 +371,15 @@ export default function Projects() {
 
                     {/* Action */}
                     {project.caseStudyUrl && (
-                      <button className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium text-sm group-hover:translate-x-1 transition-transform cursor-pointer">
+                      <a 
+                        href={project.caseStudyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-2 text-accent hover:text-accent/80 font-medium text-sm group-hover:translate-x-1 transition-transform cursor-pointer"
+                      >
                         <span>Ver más</span>
                         <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                      </button>
+                      </a>
                     )}
                   </motion.div>
                 ))}

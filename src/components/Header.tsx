@@ -65,7 +65,7 @@ export default function Header() {
     <header className={clsx(
       'fixed top-0 w-full z-50 transition-all duration-300',
       isScrolled 
-        ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg' 
+        ? 'bg-background/80 backdrop-blur-md shadow-lg' 
         : 'bg-transparent'
     )}>
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -74,14 +74,11 @@ export default function Header() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center space-x-3"
+            className="flex items-center"
           >
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">DR</span>
+            <div className="bg-accent rounded-lg px-3 py-2 flex items-center justify-center">
+              <span className="text-white font-bold text-sm">Diego Ramírez</span>
             </div>
-            <span className="text-xl font-bold text-gray-900 dark:text-white">
-              Diego Ramírez
-            </span>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -100,8 +97,8 @@ export default function Header() {
                   className={clsx(
                     'flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105 cursor-pointer',
                     isActive
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      ? 'bg-accent/10 text-accent'
+                      : 'text-foreground/70 hover:text-accent hover:bg-accent/5'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -117,9 +114,9 @@ export default function Header() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
-              href="/cv-diego-ramirez.pdf"
+              href="/files/diego-rmz-cv.pdf"
               download
-              className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105"
+              className="flex items-center space-x-2 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105"
             >
               <DocumentArrowDownIcon className="w-4 h-4" />
               <span className="text-sm font-medium">CV PDF</span>
@@ -132,7 +129,7 @@ export default function Header() {
               href="https://linkedin.com/in/diego-ramirez"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+              className="p-2 text-foreground/60 hover:text-accent transition-colors duration-200"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -144,10 +141,10 @@ export default function Header() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.8 }}
-              href="https://github.com/diego-ramirez"
+              href="https://github.com/eddcode-mx"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+              className="p-2 text-foreground/60 hover:text-accent transition-colors duration-200"
               aria-label="GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -160,7 +157,7 @@ export default function Header() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 cursor-pointer"
+              className="p-2 text-foreground/60 hover:text-accent transition-colors duration-200 cursor-pointer"
               aria-label="Toggle menu"
             >
               {isOpen ? (
@@ -182,7 +179,7 @@ export default function Header() {
           transition={{ duration: 0.3 }}
           className="md:hidden overflow-hidden"
         >
-          <div className="py-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+          <div className="py-4 space-y-2 border-t border-foreground/10">
             {navigation.map((item) => {
               const Icon = item.icon;
               const isActive = activeSection === item.href.replace('#', '');
@@ -194,8 +191,8 @@ export default function Header() {
                   className={clsx(
                     'flex items-center space-x-3 w-full px-3 py-2 rounded-lg transition-colors duration-200 cursor-pointer',
                     isActive
-                      ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      ? 'bg-accent/10 text-accent'
+                      : 'text-foreground/70 hover:text-accent hover:bg-accent/5'
                   )}
                 >
                   <Icon className="w-5 h-5" />
@@ -204,11 +201,11 @@ export default function Header() {
               );
             })}
             
-            <div className="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+            <div className="pt-4 mt-4 border-t border-foreground/10 space-y-2">
               <a
-                href="/cv-diego-ramirez.pdf"
+                href="/files/diego-rmz-cv.pdf"
                 download
-                className="flex items-center space-x-3 w-full px-3 py-2 bg-blue-600 text-white rounded-lg"
+                className="flex items-center space-x-3 w-full px-3 py-2 bg-accent text-white rounded-lg"
               >
                 <DocumentArrowDownIcon className="w-5 h-5" />
                 <span className="text-base font-medium">Descargar CV</span>
@@ -219,15 +216,15 @@ export default function Header() {
                   href="https://linkedin.com/in/diego-ramirez"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600"
+                  className="text-foreground/60 hover:text-accent"
                 >
                   LinkedIn
                 </a>
                 <a
-                  href="https://github.com/diego-ramirez"
+                  href="https://github.com/eddcode-mx"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600"
+                  className="text-foreground/60 hover:text-accent"
                 >
                   GitHub
                 </a>

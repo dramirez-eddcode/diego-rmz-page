@@ -3,13 +3,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  EnvelopeIcon,
   PhoneIcon,
   MapPinIcon,
   CalendarDaysIcon,
-  PaperAirplaneIcon,
-  ChatBubbleLeftEllipsisIcon
+  PaperAirplaneIcon
 } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 import { 
   CheckCircleIcon,
   ExclamationTriangleIcon
@@ -19,56 +18,65 @@ interface ContactMethod {
   id: string;
   name: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string }> | string;
   action: string;
   href?: string;
   color: string;
   available: boolean;
 }
 
+// Custom icon component for SVG files
+const CustomIcon = ({ src, className }: { src: string; className?: string }) => (
+  <div className={className}>
+    <Image
+      src={src}
+      alt=""
+      width={24}
+      height={24}
+      className="w-full h-full"
+    />
+  </div>
+);
+
 const contactMethods: ContactMethod[] = [
   {
     id: 'email',
     name: 'Email Directo',
     description: 'Respuesta en menos de 24 horas',
-    icon: EnvelopeIcon,
-    action: 'diego.ramirez.dev@gmail.com',
-    href: 'mailto:diego.ramirez.dev@gmail.com',
-    color: 'from-blue-500 to-cyan-500',
+    icon: '/icons/gmail-icon.svg',
+    action: 'dramirez@eddcode.com',
+    href: 'mailto:dramirez@eddcode.com',
+    color: 'bg-white',
     available: true
   },
   {
     id: 'whatsapp',
     name: 'WhatsApp',
     description: 'Chat directo para proyectos urgentes',
-    icon: ChatBubbleLeftEllipsisIcon,
-    action: '+52 477 123 4567',
-    href: 'https://wa.me/5214771234567',
-    color: 'from-green-500 to-emerald-500',
+    icon: '/icons/whatsapp-icon.svg',
+    action: '+52 477 581 3450',
+    href: 'https://wa.me/5214775813450?text=Hola%20Diego%2C%20me%20interesa%20contactarte%20para%20un%20proyecto.%20%C2%BFPodr%C3%ADamos%20conversar%3F',
+    color: 'bg-green-500',
     available: true
   },
   {
     id: 'linkedin',
     name: 'LinkedIn',
     description: 'Conexión profesional y networking',
-    icon: () => (
-      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-        <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd" />
-      </svg>
-    ),
-    action: '/in/diego-ramirez-dev',
-    href: 'https://linkedin.com/in/diego-ramirez-dev',
-    color: 'from-blue-600 to-blue-800',
+    icon: '/icons/linkedin-icon.svg',
+    action: '/in/diego-eduardo-ramírez-martínez',
+    href: 'https://www.linkedin.com/in/diego-eduardo-ram%C3%ADrez-mart%C3%ADnez-0855a5194/',
+    color: 'bg-blue-600',
     available: true
   },
   {
     id: 'calendar',
     name: 'Agendar Llamada',
     description: 'Videollamada de 30 min para discutir tu proyecto',
-    icon: CalendarDaysIcon,
+    icon: '/icons/meet-icon.svg',
     action: 'Calendly - Sesión gratuita',
-    href: 'https://calendly.com/diego-ramirez-dev',
-    color: 'from-purple-500 to-pink-500',
+    href: 'https://calendly.com/dramirez-eddcode/30min',
+    color: 'bg-white',
     available: true
   }
 ];
@@ -105,18 +113,31 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        projectType: ''
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          projectType: ''
+        });
+      } else {
+        throw new Error(data.error || 'Error al enviar el mensaje');
+      }
     } catch (error) {
+      console.error('Error submitting form:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -125,7 +146,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">
+    <section id="contact" className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -134,21 +155,21 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             ¿Listo para construir algo{' '}
-            <span className="text-blue-600">increíble</span>?
+            <span className="text-accent">increíble</span>?
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-8">
             Estoy disponible para nuevos desafíos. Conversemos sobre cómo puedo 
             ayudarte a llevar tu proyecto al siguiente nivel.
           </p>
           
           {/* Location */}
-          <div className="flex items-center justify-center space-x-2 text-gray-600 dark:text-gray-400">
+          <div className="flex items-center justify-center space-x-2 text-foreground/60">
             <MapPinIcon className="w-5 h-5" />
             <span>León, Guanajuato, México</span>
             <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            <span className="text-green-600 dark:text-green-400 font-medium">Disponible</span>
+            <span className="text-accent font-medium">Disponible</span>
           </div>
         </motion.div>
 
@@ -162,14 +183,12 @@ export default function Contact() {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                <h3 className="text-2xl font-bold text-foreground mb-6">
                   Múltiples formas de contactar
                 </h3>
                 
                 <div className="space-y-4">
                   {contactMethods.map((method, index) => {
-                    const Icon = method.icon;
-                    
                     return (
                       <motion.a
                         key={method.id}
@@ -182,34 +201,38 @@ export default function Contact() {
                         transition={{ delay: index * 0.1 }}
                         onHoverStart={() => setHoveredMethod(method.id)}
                         onHoverEnd={() => setHoveredMethod(null)}
-                        className="group block bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-gray-200 dark:border-gray-700"
+                        className="group block bg-background/50 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] border border-foreground/10"
                       >
                         <div className="flex items-start space-x-4">
-                          <div className={`w-14 h-14 bg-gradient-to-r ${method.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                            <Icon className="w-6 h-6 text-white" />
+                          <div className={`w-14 h-14 ${method.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                            {typeof method.icon === 'string' ? (
+                              <CustomIcon src={method.icon} className="w-6 h-6" />
+                            ) : (
+                              <method.icon className="w-6 h-6 text-white" />
+                            )}
                           </div>
                           
                           <div className="flex-1">
                             <div className="flex items-center space-x-2 mb-2">
-                              <h4 className="text-lg font-bold text-gray-900 dark:text-white">
+                              <h4 className="text-lg font-bold text-foreground">
                                 {method.name}
                               </h4>
                               {method.available && (
-                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
                               )}
                             </div>
                             
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            <p className="text-sm text-foreground/60 mb-2">
                               {method.description}
                             </p>
                             
-                            <div className={`font-medium bg-gradient-to-r ${method.color} bg-clip-text text-transparent group-hover:underline`}>
+                            <div className="font-medium text-accent group-hover:underline">
                               {method.action}
                             </div>
                           </div>
                           
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-foreground/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                           </div>
@@ -225,9 +248,9 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800"
+                className="bg-accent/5 rounded-2xl p-6 border border-accent/20"
               >
-                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                <h4 className="text-lg font-bold text-foreground mb-4">
                   Estoy disponible para:
                 </h4>
                 <div className="space-y-3">
@@ -240,8 +263,8 @@ export default function Contact() {
                       transition={{ delay: index * 0.1 }}
                       className="flex items-center space-x-3"
                     >
-                      <CheckCircleIcon className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{option}</span>
+                      <CheckCircleIcon className="w-5 h-5 text-accent flex-shrink-0" />
+                      <span className="text-foreground/80">{option}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -253,16 +276,16 @@ export default function Contact() {
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700"
+              className="bg-background rounded-2xl shadow-xl p-8 border border-foreground/10"
             >
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              <h3 className="text-2xl font-bold text-foreground mb-6">
                 Envíame un mensaje
               </h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-2">
                       Nombre completo *
                     </label>
                     <input
@@ -272,13 +295,13 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-foreground/20 bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                       placeholder="Tu nombre"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-2">
                       Email *
                     </label>
                     <input
@@ -288,14 +311,14 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 rounded-lg border border-foreground/20 bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                       placeholder="tu@email.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="projectType" className="block text-sm font-medium text-foreground/80 mb-2">
                     Tipo de proyecto
                   </label>
                   <select
@@ -303,7 +326,7 @@ export default function Contact() {
                     name="projectType"
                     value={formData.projectType}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 rounded-lg border border-foreground/20 bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                   >
                     <option value="">Selecciona una opción</option>
                     <option value="fullstack">Desarrollo Full-Stack</option>
@@ -315,7 +338,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-foreground/80 mb-2">
                     Asunto *
                   </label>
                   <input
@@ -325,13 +348,13 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 rounded-lg border border-foreground/20 bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent transition-colors"
                     placeholder="¿En qué puedo ayudarte?"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-foreground/80 mb-2">
                     Mensaje *
                   </label>
                   <textarea
@@ -341,7 +364,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
+                    className="w-full px-4 py-3 rounded-lg border border-foreground/20 bg-background text-foreground focus:ring-2 focus:ring-accent focus:border-transparent transition-colors resize-none"
                     placeholder="Cuéntame más sobre tu proyecto..."
                   />
                 </div>
@@ -350,7 +373,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2 cursor-pointer"
+                  className="w-full bg-accent hover:bg-accent/90 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>
@@ -373,7 +396,7 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center space-x-2 text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg"
+                    className="flex items-center space-x-2 text-accent bg-accent/10 p-3 rounded-lg"
                   >
                     <CheckCircleIcon className="w-5 h-5" />
                     <span>¡Mensaje enviado con éxito! Te responderé pronto.</span>
@@ -384,7 +407,7 @@ export default function Contact() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center space-x-2 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg"
+                    className="flex items-center space-x-2 text-accent bg-accent/10 p-3 rounded-lg"
                   >
                     <ExclamationTriangleIcon className="w-5 h-5" />
                     <span>Error al enviar el mensaje. Intenta contactarme directamente.</span>
@@ -393,8 +416,8 @@ export default function Contact() {
               </form>
 
               {/* Response time notice */}
-              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <p className="text-sm text-blue-800 dark:text-blue-300 text-center">
+              <div className="mt-6 p-4 bg-accent/5 rounded-lg border border-accent/20">
+                <p className="text-sm text-accent text-center">
                   ⚡ <strong>Respuesta garantizada en menos de 24 horas</strong>
                 </p>
               </div>

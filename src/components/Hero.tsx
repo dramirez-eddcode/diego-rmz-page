@@ -49,7 +49,7 @@ const BackgroundParticles = () => {
   }));
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
@@ -109,22 +109,9 @@ export default function Hero() {
     return () => clearInterval(cursorInterval);
   }, []);
 
-  const scrollToProjects = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 relative overflow-hidden">
+    <section id="hero" className="min-h-screen flex items-center justify-center bg-background relative overflow-hidden">
       {/* Background Particles */}
       <BackgroundParticles />
 
@@ -152,19 +139,19 @@ export default function Hero() {
                 >
                   👋
                 </motion.span>
-                <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl md:text-3xl font-bold text-foreground">
                   Hola, soy Diego Ramírez
                 </h1>
               </div>
               
-              <h2 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-tight">
+              <h2 className="text-4xl md:text-6xl font-bold text-accent leading-tight">
                 Full-Stack Developer &<br />
                 <span className="text-3xl md:text-5xl">Líder Técnico</span>
               </h2>
               
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
+              <p className="text-xl text-foreground/70 max-w-2xl">
                 Transformando ideas en soluciones escalables desde{' '}
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
+                <span className="font-semibold text-accent">
                   León, Guanajuato
                 </span>
               </p>
@@ -180,12 +167,12 @@ export default function Hero() {
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 dark:border-gray-700/50"
+                  className="bg-background/50 backdrop-blur-sm rounded-xl p-4 border border-foreground/10"
                 >
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  <div className="text-2xl font-bold text-accent">
                     {stat.value}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                  <div className="text-sm text-foreground/70">
                     {stat.label}
                   </div>
                 </div>
@@ -197,13 +184,13 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="bg-gray-900 dark:bg-gray-950 rounded-xl p-6 font-mono text-sm shadow-2xl border border-gray-700"
+              className="bg-foreground/90 rounded-xl p-6 font-mono text-sm shadow-2xl border border-foreground/20"
             >
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                <span className="text-gray-400 ml-4">diego@portfolio:~$</span>
+                <span className="text-background/70 ml-4">diego@portfolio:~$</span>
               </div>
               
               <div className="space-y-2 min-h-[120px]">
@@ -228,25 +215,25 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row gap-4 relative z-10"
             >
-              <button
-                onClick={scrollToProjects}
-                className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl group cursor-pointer"
+              <a
+                href="#projects"
+                className="flex items-center justify-center space-x-2 bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl group cursor-pointer relative z-20"
               >
                 <EyeIcon className="w-5 h-5" />
                 <span>Ver mis proyectos</span>
                 <ChevronRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
               
-              <button
-                onClick={scrollToContact}
-                className="flex items-center justify-center space-x-2 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 group cursor-pointer"
+              <a
+                href="#contact"
+                className="flex items-center justify-center space-x-2 bg-background hover:bg-background/80 text-foreground px-8 py-4 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl border border-foreground/20 group cursor-pointer relative z-20"
               >
                 <EnvelopeIcon className="w-5 h-5" />
                 <span>Contactar ahora</span>
                 <ChevronRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
             </motion.div>
           </motion.div>
 
@@ -268,19 +255,23 @@ export default function Hero() {
                   repeat: Infinity, 
                   ease: "easeInOut" 
                 }}
-                className="w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-8 border-white dark:border-gray-800 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20"
+                className="w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-8 border-background bg-accent/5"
               >
-                {/* Placeholder for professional photo */}
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
-                  <div className="text-6xl">👨‍💻</div>
-                </div>
+                {/* Professional photo */}
+                <Image
+                  src="/profile/diego-rmz.png"
+                  alt="Diego Ramírez - Full-Stack Developer"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </motion.div>
               
               {/* Floating elements */}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-6 -right-6 w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center shadow-lg"
+                className="absolute -top-6 -right-6 w-16 h-16 bg-accent rounded-full flex items-center justify-center shadow-lg"
               >
                 <span className="text-white text-2xl">⚡</span>
               </motion.div>
@@ -288,7 +279,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-                className="absolute -bottom-6 -left-6 w-14 h-14 bg-purple-500 rounded-full flex items-center justify-center shadow-lg"
+                className="absolute -bottom-6 -left-6 w-14 h-14 bg-accent/80 rounded-full flex items-center justify-center shadow-lg"
               >
                 <span className="text-white text-xl">🚀</span>
               </motion.div>
@@ -296,7 +287,7 @@ export default function Hero() {
               <motion.div
                 animate={{ x: [0, 10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, delay: 2 }}
-                className="absolute top-1/2 -left-8 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg"
+                className="absolute top-1/2 -left-8 w-12 h-12 bg-accent/60 rounded-full flex items-center justify-center shadow-lg"
               >
                 <span className="text-white text-lg">💡</span>
               </motion.div>
@@ -314,7 +305,7 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="flex flex-col items-center space-y-2 text-gray-600 dark:text-gray-400"
+            className="flex flex-col items-center space-y-2 text-foreground/60"
           >
             <span className="text-sm font-medium">Scroll para explorar</span>
             <ChevronRightIcon className="w-5 h-5 rotate-90" />

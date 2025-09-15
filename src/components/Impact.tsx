@@ -155,7 +155,7 @@ export default function Impact() {
   }, []);
 
   return (
-    <section id="impact" className="py-20 bg-white dark:bg-gray-900" ref={sectionRef}>
+    <section id="impact" className="py-20 bg-background" ref={sectionRef}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -164,10 +164,10 @@ export default function Impact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Mi Impacto en <span className="text-blue-600">Números</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            Mi Impacto en <span className="text-accent">Números</span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
             Resultados medibles que demuestran mi contribución en proyectos reales
             y el valor que aporto a cada organización.
           </p>
@@ -191,7 +191,7 @@ export default function Impact() {
                   ease: "easeOut"
                 }}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="group relative bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden"
+                className="group relative bg-background/50 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 border border-foreground/10 overflow-hidden"
               >
                 {/* Background gradient effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300">
@@ -214,19 +214,19 @@ export default function Impact() {
                       isVisible={visibleMetrics.has(metric.id)} 
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-bold text-foreground">
                     {metric.title}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                <p className="text-foreground/60 text-sm leading-relaxed">
                   {metric.description}
                 </p>
 
                 {/* Decorative elements */}
                 <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
-                  <Icon className="w-8 h-8 text-gray-600 dark:text-gray-400" />
+                  <Icon className="w-8 h-8 text-foreground/20" />
                 </div>
               </motion.div>
             );
@@ -241,11 +241,11 @@ export default function Impact() {
           transition={{ delay: 0.6 }}
           className="mt-16 text-center"
         >
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-8 max-w-4xl mx-auto border border-blue-200 dark:border-blue-800">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="bg-accent/5 rounded-2xl p-8 max-w-4xl mx-auto border border-accent/20">
+            <h3 className="text-2xl font-bold text-foreground mb-4">
               Impacto Real, Resultados Medibles
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-6">
+            <p className="text-foreground/70 text-lg leading-relaxed mb-6">
               Cada número representa proyectos reales, usuarios satisfechos y mejoras 
               tangibles en procesos empresariales. Mi enfoque siempre ha sido entregar 
               soluciones que no solo funcionen, sino que generen valor real.
@@ -254,28 +254,28 @@ export default function Impact() {
             {/* Highlight boxes */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                <div className="text-2xl font-bold text-accent mb-2">
                   Enterprise
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground/60">
                   Proyectos críticos para grandes corporaciones
                 </p>
               </div>
               
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">
+                <div className="text-2xl font-bold text-accent mb-2">
                   Escalabilidad
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground/60">
                   Arquitecturas que crecen con el negocio
                 </p>
               </div>
               
               <div className="text-center">
-                <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+                <div className="text-2xl font-bold text-accent mb-2">
                   Liderazgo
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-foreground/60">
                   Equipos motivados y proyectos exitosos
                 </p>
               </div>
