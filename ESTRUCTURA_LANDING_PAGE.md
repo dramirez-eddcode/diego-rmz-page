@@ -180,7 +180,7 @@ Certificaciones Relevantes (15+ completadas):
 ```
 ¿Listo para construir algo increíble?
 
-Estoy disponible para:
+Me encuentro a su disposición para:
 ✓ Posiciones Full-Stack Senior
 ✓ Liderazgo Técnico
 ✓ Consultoría en arquitectura
